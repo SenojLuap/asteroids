@@ -26,13 +26,19 @@
 
   <ItemGroup>
     <FormationData Include="assets\compiled\formations\*.fdat" />
+    <AnimationData Include="assets\compiled\animations\*.adat" />
+    <SpriteSheetData Include="assets\compiled\spritesheets\*.ssdat" />
   </ItemGroup>
 
   <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
     <Copy SourceFiles="@(FormationData)" DestinationFolder="$(OutDir)\assets\formations\" />
+    <Copy SourceFiles="@(AnimationData)" DestinationFolder="$(OutDir)\assets\animations\" />
+    <Copy SourceFiles="@(SpriteSheetData)" DestinationFolder="$(OutDir)\assets\spritesheets\" />
   </Target>
   <Target Name="CopyCustomContentOnPublish" AfterTargets="Publish">
     <Copy SourceFiles="@(FormationData)" DestinationFolder="$(PublishDir)\assets\formations\" />
+    <Copy SourceFiles="@(AnimationData)" DestinationFolder="$(PublishDir)\assets\animations\" />
+    <Copy SourceFiles="@(SpriteSheetData)" DestinationFolder="$(PublishDir)\assets\spritesheets\" />
   </Target>
 
 </Project>
