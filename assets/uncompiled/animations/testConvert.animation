@@ -1,0 +1,8 @@
+{
+    "version" : [ 1, 0 ],
+    "key" : "testConvert",
+    "spritesheet" : "fakeSpriteSheet",
+    "frame_start" : 0,
+    "frame_stop" : 10,
+    "frame_length" : 0.1
+}

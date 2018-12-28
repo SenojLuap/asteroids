@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Authors>Paul Jones</Authors>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <AssemblyTitle>Asteroids Game</AssemblyTitle>
+    <RuntimeIdentifiers>win10-x64;win-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <MonoGameContentReference Include="**\*.mgcb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Content.Builder" Version="3.7.0.4" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\asteroids_common\asteroids_common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FormationData Include="assets\compiled\formations\*.fdat" />
+  </ItemGroup>
+
+  <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+    <Copy SourceFiles="@(FormationData)" DestinationFolder="$(OutDir)\assets\formations\" />
+  </Target>
+  <Target Name="CopyCustomContentOnPublish" AfterTargets="Publish">
+    <Copy SourceFiles="@(FormationData)" DestinationFolder="$(PublishDir)\assets\formations\" />
+  </Target>
+
+</Project>

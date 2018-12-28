@@ -1,0 +1,19 @@
+{
+    "version" : [0, 1],
+    "key" : "testFormation",
+    "schedule" : [
+        {
+            "time" : 0,
+            "position" : [ 0.0, 0.5]
+        }, {
+            "time" : 500,
+            "position" : [ 0.0, 0.5]
+        }, {
+            "time" : 1000,
+            "position" : [ 0.0, 0.5]
+        }, {
+            "time" : 1500,
+            "position" : [ 0.0, 0.5]
+        }
+    ]
+}
