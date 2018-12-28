@@ -3,5 +3,19 @@
         "*.spritesheet": "json",
         "*.animation": "json",
         "*.formation": "json"
-    }
+    },
+    "json.schemas": [
+        {
+            "fileMatch": ["*.spritesheet"],
+            "url": "./assets/json_schemas/spritesheet.schema.json"
+        },
+        {
+            "fileMatch": ["*.formation"],
+            "url": "./assets/json_schemas/formation.schema.json"
+        },
+        {
+            "fileMatch": ["*.animation"],
+            "url": "./assets/json_schemas/animation.schema.json"
+        }
+    ]
 }
