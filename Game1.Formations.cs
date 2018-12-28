@@ -12,9 +12,11 @@ namespace Asteroids {
             
             string formationsPath = Directory.GetCurrentDirectory() + "/assets/formations/";
             foreach (var fileUri in Directory.GetFiles(formationsPath)) {
-                var newFormation = JsonFormation.FromFile(fileUri);
-                if (newFormation != null)
-                    formations[newFormation.Key] = newFormation;
+                using (var file = File.OpenRead(fileUri)) {
+                    var newFormation = JsonFormation.FromStream(file);
+                    if (newFormation != null)
+                        formations[newFormation.Key] = newFormation;
+                    }
             }
         }
 
