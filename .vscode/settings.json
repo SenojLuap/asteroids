@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.spritesheet": "json",
+        "*.animation": "json",
+        "*.formation": "json"
+    }
+}
