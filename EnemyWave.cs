@@ -35,11 +35,17 @@ namespace Asteroids {
 
         public void Spawn(Game1 game, Vector2 spawnPos) {
             Enemy enemy = (Enemy)Activator.CreateInstance(enemyType);
-            if (enemy == null) return; // TODO: Throw error with application error handler
+            if (enemy == null) {
+                game.Log.Error(String.Format("Could not create instance: {0}", enemyType.Name));
+                return;
+            }
             enemy.Init(game);
             enemy.geometry.Position = spawnPos;
             EnemyFlightPath flightPath = game.GetFlightPath(flightPathKey);
-            if (flightPath == null) return; // TODO: Throw error with application error handler
+            if (flightPath == null) {
+                game.Log.Error(String.Format("No flightpath registered to key: {0}", flightPathKey));
+                return;
+            }
             flightPath.InitEnemy(enemy);
             game.AddEntity(enemy);
         }

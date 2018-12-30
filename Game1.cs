@@ -7,12 +7,14 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 
 using Asteroids.Common;
+using paujo.Debug;
 
 namespace Asteroids {
     public partial class Game1 : Game {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player player;
+        public Logger Log { get; private set; };
 
         SpriteFont debugFont;
 
@@ -25,6 +27,8 @@ namespace Asteroids {
         }
 
         protected override void Initialize() {
+            Log = new Logger();
+            Log.AddConsoleTarget();
             graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
             graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
             graphics.IsFullScreen = true;
@@ -94,12 +98,6 @@ namespace Asteroids {
             spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-
-
-        //TODO: Delete this
-        public static void pln(string message) {
-            System.Console.WriteLine(message);
         }
     }
 }
