@@ -1,8 +1,0 @@
-{
-    "key" : "player",
-    "texture" : "assets/player.png",
-    "frameWidth" : 100,
-    "frameHeight" : 200,
-    "frameCount" : 64,
-    "repeatAtEnd" : true
-}
