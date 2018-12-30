@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -11,12 +12,12 @@ namespace Asteroids {
             formations = new Dictionary<string, EnemyFormation>();
             
             string formationsPath = Directory.GetCurrentDirectory() + "/assets/formations/";
-            foreach (var fileUri in Directory.GetFiles(formationsPath)) {
+            foreach (var fileUri in Directory.GetFiles(formationsPath, "*.fdat")) {
                 using (var file = File.OpenRead(fileUri)) {
                     var newFormation = JsonFormation.FromStream(file);
                     if (newFormation != null)
                         formations[newFormation.Key] = newFormation;
-                    }
+                }
             }
         }
 
