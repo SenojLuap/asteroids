@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
@@ -14,7 +15,8 @@ namespace Asteroids {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player player;
-        public Logger Log { get; private set; };
+        public Logger Log { get; private set; }
+        public ContentManager ContentManager { get; private set; }
 
         SpriteFont debugFont;
 
@@ -33,7 +35,11 @@ namespace Asteroids {
             graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
-            FormationsPreInit();
+            
+            ContentManager = new ContentManager(this);
+            ContentManager.AddContentDirectory(Directory.GetCurrentDirectory() + "/assets/");
+            ContentManager.LoadContent();
+
             EntitiesPreInit();
             WavesPreInit();
             CollisionPreInit();
@@ -44,7 +50,6 @@ namespace Asteroids {
             controlManager = new ControlManager();
 
             TouchPanel.EnabledGestures = GestureType.FreeDrag;
-            FormationsPostInit();
             EntitiesPostInit();
             WavesPostInit();
             CollisionPostInit();
