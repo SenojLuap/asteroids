@@ -3,10 +3,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using Asteroids.Common;
+
 namespace Asteroids {
     public class Player : GameEntity {
 
-        public Animation playerAnimation;
+        public ISpriteAnimationContext AnimationContext;
 
         public Vector2 Position;
 
@@ -24,9 +26,9 @@ namespace Asteroids {
 
         #region Geometry
 
-        public int Width() => playerAnimation.frameWidth;
+        public int Width() => AnimationContext.Width;
 
-        public int Height() => playerAnimation.frameHeight;
+        public int Height() => AnimationContext.Height;
 
         public CollisionRect collisionRect;
 
@@ -36,8 +38,9 @@ namespace Asteroids {
 
         #endregion
 
-        public void Initialize(Animation anim, Vector2 position) {
-            playerAnimation = anim;
+        public void Initialize(SpriteAnimation animation, Vector2 position) {
+            AnimationContext = animation.CreateContext();
+            AnimationContext.Transform.Rotation = (float)(Math.PI / 2.0);
             Position = position;
             Active = true;
             Health = 100;
@@ -58,8 +61,10 @@ namespace Asteroids {
             Position.Y = MathHelper.Clamp(Position.Y, 0, 1);
             collisionRect.rectangle.X = Position.X - (SIZE / 2);
             collisionRect.rectangle.Y = Position.Y - (SIZE / 4);
-            playerAnimation.position = Position;
-            playerAnimation.Update(game, ellapsedTime);
+
+            AnimationContext.Transform.Position = game.RelativeToReal(Position);
+            AnimationContext.Update(ellapsedTime);
+
             if (fireCoolDown > 0)
                 fireCoolDown -= ellapsedTime.ElapsedGameTime.TotalSeconds;
             if (game.controlManager.Pressed(PlayerCommand.Fire) && fireCoolDown <= 0) {
@@ -73,7 +78,7 @@ namespace Asteroids {
 
 
         public override void Draw(Game1 game, SpriteBatch spriteBatch) {
-            playerAnimation.Draw(game, spriteBatch);
+            AnimationContext.Draw(spriteBatch);
         }
 
 

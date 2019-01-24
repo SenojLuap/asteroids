@@ -31,9 +31,10 @@ namespace Asteroids {
         protected override void Initialize() {
             Log = new Logger();
             Log.AddConsoleTarget();
+
             graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
             graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             graphics.ApplyChanges();
             
             ContentManager = new ContentManager(this);
@@ -43,6 +44,7 @@ namespace Asteroids {
             EntitiesPreInit();
             WavesPreInit();
             CollisionPreInit();
+            
             player = new Player();
             entities.Add(player);
 
@@ -70,7 +72,7 @@ namespace Asteroids {
                     1, 100, Color.White, 1f, MathHelper.PiOver2, true);
             float imageRatio = (float)playerAnimation.frameWidth / (float)GraphicsDevice.Viewport.Width;
             playerAnimation.scale = Player.SIZE / imageRatio;
-            player.Initialize(playerAnimation, playerPosition);
+            player.Initialize(ContentManager.GetAnimationByKey("playerAnimated"), playerPosition);
 
             debugFont = Content.Load<SpriteFont>("assets\\DebugFont");
 
@@ -104,5 +106,21 @@ namespace Asteroids {
 
             base.Draw(gameTime);
         }
+
+
+        #region Helper Methods
+
+        /// <summary>
+        /// Convert a screen-relative location to screen-exact location (in pixels)
+        /// </summary>
+        /// <param name="position">The location, in screen-relative coordinates</param>
+        /// <returns>The location in screen-exact coordinates</returns>
+        public Vector2 RelativeToReal(Vector2 position) {
+            var screenW = GraphicsDevice.Viewport.Width;
+            var screenH = GraphicsDevice.Viewport.Height;
+            return new Vector2(position.X * screenW, position.Y * screenH);
+        }
+
+        #endregion
     }
 }
