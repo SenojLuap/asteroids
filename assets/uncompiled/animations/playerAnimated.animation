@@ -1,0 +1,8 @@
+{
+    "version": [1, 0],
+    "key": "playerAnimated",
+    "spritesheet": "playerAnimated",
+    "frame_start": 0,
+    "frame_stop": 63,
+    "frame_length": 0.1
+}

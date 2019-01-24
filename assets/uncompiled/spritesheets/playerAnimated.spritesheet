@@ -1,0 +1,7 @@
+{
+    "texture_name": "assets/playerAnimated",
+    "version": [0, 1],
+    "key": "playerAnimated",
+    "frame_width": 100,
+    "frame_height": 200
+}
