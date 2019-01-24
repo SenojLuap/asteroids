@@ -8,7 +8,7 @@ using static Asteroids.Utilities;
 
 namespace Asteroids {
 
-    public class ContentManager {
+    public class ContentManager : ISpriteSheetProvider {
 
         /// <summary>
         /// The game the manager is operating on.
@@ -183,6 +183,7 @@ namespace Asteroids {
                             Game.Log.Error(" -  - When loading file: " + fileUri);
                         } else {
                             Game.Log.Debug(String.Format("Loaded '{0}' from {1}", animation.Key, fileUri));
+                            animation.Initialize(this);
                             animations[animation.Key] = animation;
                         }
                     } catch (Exception ex) {
@@ -190,6 +191,30 @@ namespace Asteroids {
                     }
                 }
             }
+        }
+
+
+        /// <summary>
+        /// Retrieve a SpriteSheet by its key.
+        /// </summary>
+        /// <param name="key">The key for the desired sprite sheet.</param>
+        /// <returns>The SpriteSheet, if found</returns>
+        public SpriteSheet GetSpriteSheetByKey(string key) {
+            if (spriteSheets.ContainsKey(key))
+                return spriteSheets[key];
+            return null;
+        }
+
+
+        /// <summary>
+        /// Retrieve a SpriteAnimation by its key.
+        /// </summary>
+        /// <param name="key">The key for the desired animation.</param>
+        /// <returns>The SpriteAnimation, if found</returns>
+        public SpriteAnimation GetAnimationByKey(string key) {
+            if (animations.ContainsKey(key))
+                return animations[key];
+            return null;
         }
 
         #endregion
